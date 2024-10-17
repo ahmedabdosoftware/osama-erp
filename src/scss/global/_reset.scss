@@ -1,0 +1,45 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+a{
+    text-decoration: none;
+    text-transform: capitalize;
+    color:rgb(121, 120, 120);
+    font-size: 18px;
+    font-weight: bold;
+}
+ul{
+    list-style: none;
+    margin: 0px;
+}
+input,select{
+    border: solid 2px rgb(181, 179, 179);
+    padding-left: 8px;
+}
+select:focus{
+    outline: none;
+}
+input:focus{
+    outline: solid 2px rgb(67, 67, 227);
+    border: none;
+}
+label{
+    font-weight: bold;
+    text-transform: capitalize;
+}
+button{
+    border: none;
+    // cursor: pointer;
+}
+
+button:focus{
+    outline: none;
+}
+img{
+    mix-blend-mode: multiply;
+}
+.link{
+    color:rgb(121, 120, 120);
+}

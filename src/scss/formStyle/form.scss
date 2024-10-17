@@ -1,0 +1,190 @@
+//  **Add users and other forms also like units**
+
+%spichial_flex{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+  }
+  .add {
+    // background-color: blueviolet;
+    @extend %spichial_flex;
+  
+  }
+  .add_allContent {
+    width: 370px;
+    display: flex;
+    flex-wrap: wrap;
+    height: 680px;
+    background-color: white;
+    border-radius: 10px;
+    border: solid 1px rgb(181, 179, 179);
+    // background-color: forestgreen;
+  }
+  // title.....
+  .add_allContent > div:first-child {
+    width: 100%;
+    height: 70px;
+  // background-color: forestgreen;
+  }
+  
+  h3{
+    text-align: center;
+    line-height: 70px;
+    text-transform: capitalize;
+  }
+
+  // cont-form.....
+  .add_allContent_cont-form {
+    width: 100%;
+    height: 580px;
+    //background-color: rgb(60, 82, 69);
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .add_allContent_cont-form > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    padding-left: 20px;
+    input {
+      width: 90%;
+      border-radius: 5px;
+      margin-top: 10px;
+    }
+  }
+  
+  .cont-form_field{
+    width: 100%;
+    height: 80px;
+    input {
+      height: 35px;
+    }
+  // background-color: red;
+  }
+  .cont-form_field--Password ,
+  .cont-form_field--Number,
+   .cont-form_field--Email {
+    height: 90px;
+   // background-color: sandybrown;
+    input {
+      height: 50px;
+    }
+  }
+  .cont-form_field--Email{
+    height:130px;
+   // background-color: seagreen;
+    
+  }
+  .cont-form_Image{
+    width: 100%;
+    height: 100px;
+   // background-color: saddlebrown;
+
+    input {
+    height: 50px;
+      // border: 2px dotted rgb(59, 59, 63);
+      &:focus {
+        outline: none; 
+      }
+   
+  }
+  
+
+  }
+  
+  // input file
+  input[type="file"]{
+
+    font-size: 19px;
+    background-color: white;
+    border-radius: 5px;
+    border: 2px solid rgb(198, 195, 195);
+    width: 90%;
+  }
+
+  input[type="file"]::-webkit-file-upload-button{
+    background-color: rgb(198, 195, 195);
+    /* border-radius: 5px; */
+    /* style goes here */
+    border: none;
+    width: 120px;
+    height: 50px;
+    cursor: pointer;
+    margin-left:-7px ;
+   }
+  
+  
+ 
+  .cont-form_btn{
+    width: 100%;
+    height:100px;
+    //background-color: saddlebrown;
+    display: flex;
+    flex-direction: row !important;
+    justify-content: flex-end;
+    align-items: center;
+    button:nth-child(2) {
+      background-color: rgb(67, 67, 227);
+      width: 120px;
+      // cursor: pointer;
+      margin-right: 33px;
+      // border: none;
+      color: white;
+      // font-weight: bold;
+    }
+  }
+  
+ 
+  .readOnlyInput{
+    background-color: rgb(237, 233, 233);
+  }
+  button {
+    margin-right: 7px;
+    border-radius: 5px;
+    width: 70px;
+    height: 30px;
+    text-transform: capitalize;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  .note {
+    font-size: 15px;
+    padding-left: 3px;
+    color: rgb(181, 179, 179);
+  }
+  .note::first-letter {
+    text-transform: capitalize;
+  }
+  .add_title {
+    width: 130px;
+    height: 50px;
+    margin-top: -80px;
+   // background-color: red;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: flex-start;
+    p {
+      text-transform: capitalize;
+      font-size: 18px;
+      font-weight: 600;
+    }
+  }
+  // phone
+  @media(max-width:477px){
+    .add_title {
+     margin-left: 20px;
+    }
+  }
+  // phone
+  @media(max-width:366px){
+    .add_allContent {
+      width: 345px;
+    }
+  }
+
+
+
+
+  
