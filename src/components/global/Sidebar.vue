@@ -41,9 +41,6 @@
                   <router-link to="/dashboard/units">
                     units
                   </router-link>
-                  <router-link to="/dashboard/notes">
-                    ads poster
-                  </router-link>
                   <router-link to="/dashboard/Category">
                     categories
                   </router-link>
@@ -71,13 +68,6 @@
                 
                 <router-link v-if="!isCollapsed" to="/dashboard/units">
                   <p class="link">units</p>
-                </router-link>
-              </div>
-              <div  v-show="isProductsOpen && !isCollapsed" :class="[{'different-color': isProductsOpen, 'dark-mode-content': getDarkMode}, 'supMenue']">
-                <font-awesome-icon class="iconAwesome" icon="chevron-right" />
-                
-                <router-link v-if="!isCollapsed" to="/dashboard/notes">
-                  <p class="link">ads poster</p>
                 </router-link>
               </div>
               <div  v-show="isProductsOpen && !isCollapsed" :class="[{'different-color': isProductsOpen, 'dark-mode-content': getDarkMode}, 'supMenue']">
@@ -116,14 +106,7 @@
               <p class="link">clients</p>
             </router-link>
           </div>
-          <div :class="{ 'dark-mode-content': getDarkMode }" class="projects">
-            <router-link to="/dashboard/Projects">
-              <font-awesome-icon class="iconAwesome" icon="project-diagram" />
-            </router-link>
-            <router-link v-if="!isCollapsed" to="/dashboard/Projects">
-              <p class="link">projects</p>
-            </router-link>
-          </div>
+         
        
            <!-- Storage Section -->
            <div @click="toggleSubMenu('storage')" :class="[{'different-color': isStorageOpen, 'dark-mode-content': getDarkMode}, 'storage-sup']">
@@ -225,35 +208,6 @@
                 </router-link>
               </div>
 
-              
-
-        <!-- catalog Section -->
-        <div :class="{ 'dark-mode-content': getDarkMode }">
-          <router-link  to="/dashboard/catalog">
-            <font-awesome-icon class="iconAwesome" icon="file-pdf"  />
-          </router-link>
-          <router-link v-if="!isCollapsed" to="/dashboard/catalog">
-            <p class="link">Catalog PDF</p>
-          </router-link>
-        </div>
-        
-        <!-- reviews Section -->
-        <div :class="{ 'dark-mode-content': getDarkMode }" class="reviews">
-            <router-link to="/dashboard/Reviews">
-              <font-awesome-icon class="iconAwesome" icon="comments" />
-            </router-link>
-            <router-link v-if="!isCollapsed" to="/dashboard/Reviews">
-              <p class="link">reviews</p>
-            </router-link>
-          </div>
-          <div :class="{ 'dark-mode-content': getDarkMode }" class="themeCont">
-              <font-awesome-icon @click="theme()" class="iconAwesome" icon="adjust" />
-              <div v-if="!isCollapsed" class="theme" :class="{ 'dark-mode-content': getDarkMode }">
-                <p @click="theme()" class="link theme">theme</p>
-                  <font-awesome-icon  class="iconAwesome" :icon="getDarkMode ? 'moon' : 'sun'" />
-              </div>
-              <font-awesome-icon class="arrow"  />
-          </div>
           <div :class="{ 'dark-mode-content': getDarkMode }" class="log-out" @click="logOut">
             <div
               :class="{ 'dark-mode-content': getDarkMode }"

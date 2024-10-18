@@ -2,6 +2,7 @@
   "name": "vuecli",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://ahmedabdosoftware.github.io/osama-erp",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",

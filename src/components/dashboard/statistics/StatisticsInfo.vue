@@ -24,32 +24,17 @@
           :value="calculateTotalPurchasesUnPaid"
         />
 
-
-        <StatisticsResult
-          icon="dollar-sign"
-          title="المصنعيه"
-          :value="calculateTotalInstallationForAllOrders"
-        />
-
         <StatisticsResult
           icon="box-open"
-          title="بعت بكام خامات" 
+          title=" المبيعات" 
           :value="calculateTotalSales"
         />
 
         <StatisticsResult
-          icon="cash-register"
-          title="صافى ربح الخامات"
-          value="1230"
-        />
-
-        <StatisticsResult
           icon="clipboard-list"
-          title="الشغل الغير مدفوع او غير منتهى"
-          :isNonPaid="true"
+          title="مبيعات الغير مدفوع او غير منتهى"
+          :value="calculateTotalSalesForUnfinishedOrders"
         >
-          <p class="supResult"> <span> خامات :</span> {{ calculateTotalSalesForUnfinishedOrders }} </p>
-          <p class="supResult supResul--installation"> <span> مصنعية :  </span> {{ calculateTotalInstallationForUnfinishedOrders }} </p>
         </StatisticsResult>
         
       </div>
