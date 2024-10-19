@@ -51,21 +51,7 @@
                   </div>
                   
                 </div>
-                <div class="formbold-input-flex">
-
-                  <div></div>
-                  <div>
-                    <label for="editOfInstallation" class="formbold-form-label aline-end">   تعديل المصنعية</label>
-                    <input
-                    type="number"
-                    id="editOfInstallation"
-                    placeholder="ادخل قيمة الجديدة"
-                    class="formbold-form-input aline-end"
-                    v-model="editOfInstallation"
-                    />
-                  </div>
-                </div>
-
+               
                 <div class="formbold-mb-3 cont_add_del_upda">
                   <button 
                     @click.prevent="editProduct" 
@@ -112,25 +98,8 @@
                   <input type="checkbox" v-model="displayTowInvoice" />
                 </label>
               </div>              
-              <div class="display-options">
-                <label >
-                  (ان وجدت) اظهار المصنعية فى الجدول  
-                  <input type="checkbox" v-model="displayInstallation" />
-                </label>
-              </div>    
-              <div v-if="displayInstallation" class="formbold-input-flex">
-                <div></div>
-                <div>
-                  <label for="fixedInstallation" class="formbold-form-label aline-end">  سعر مصنعية موحد ؟</label>
-                  <input
-                  type="number"
-                  id="fixedInstallation"
-                  placeholder="ادخل قيمة الجديدة"
-                  class="formbold-form-input aline-end"
-                  v-model="fixedInstallation"
-                  />
-                </div>
-              </div>          
+               
+                 
 
                 <button class="formbold-btn" :class="{ 'disabled-btn': invalid }" :disabled="invalid"  >حفظ و إنشاء الفاتورة</button>
                    

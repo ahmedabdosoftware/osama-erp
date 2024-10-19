@@ -23,6 +23,7 @@
           title="مشتريات غير مدفوعة"
           :value="calculateTotalPurchasesUnPaid"
         />
+        
 
         <StatisticsResult
           icon="box-open"
@@ -217,7 +218,10 @@ computed: {
         const discountAmount = productTotalPrice * (product.price_offer / 100);
         return subTotal + (productTotalPrice - discountAmount);
       }, 0);
-      return total + orderTotalSales;
+
+        const totalDiscountValue = parseFloat(order.discount_value || 0);
+        
+        return total + (orderTotalSales - totalDiscountValue);
     }, 0);
   
     return totalSales.toFixed(2);
@@ -268,8 +272,13 @@ computed: {
         const productTotalPrice = productPrice * product.quantity;   
         const discountAmount = productTotalPrice * (product.price_offer / 100);
         return subTotal + (productTotalPrice - discountAmount);
+
       }, 0);
-      return total + orderTotalSales;
+
+        const totalDiscountValue = parseFloat(order.discount_value || 0);
+        
+        return total + (orderTotalSales - totalDiscountValue);    
+          
     }, 0).toFixed(2);
   },
 },

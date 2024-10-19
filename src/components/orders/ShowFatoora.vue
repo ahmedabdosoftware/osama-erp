@@ -3,14 +3,16 @@
       <div class="fatoora">
         <div  class="fatoora__header">
           <div>
-          <img class="invoiceLogo" :src="require('@/assets/images/invoice/logo.jpg')">
+
+           <!-- /*   <img class="invoiceLogo" :src="require('@/assets/images/invoice/logo.jpg')">        */ -->
+
           </div>
           <div>
             <button>بيان اسعار</button>
             <span>  {{ orderInfo.numberOfOrder }}  :رقم</span>
           </div>
           <div>
-            <p class="categories">  بانوهات كرانيش اسقف معلقة بديل خشب بديل رخام </p>
+            <p class="categories">  قطع غيار && جميع مستلزمات العربيات</p>
        
           </div>
         </div>
@@ -66,23 +68,25 @@
                 <td colspan="3">{{  orderInfo.customShipping && isCustomized ==="true" ?orderInfo.customShipping : orderInfo.shipping }}</td>
                 <td colspan="4">الشحن</td>
               </tr>
+              <tr  v-if="shouldDisplayDiscount">
+                <td colspan="3">  {{  orderInfo.discount_value  }}  </td>
+                <td colspan="4"> الحصم الكلى بالجنيه</td>
+              </tr>
             </tbody>
           </table>
         </div>
         <div  class="fatoora__sales">
           <p v-if="shouldDisplayDiscount">اجمالى الخصم: <span>{{ calculateTotalDiscount }}</span></p>
-          <p>اجمالى خامات : <span>{{ calculateGrandTotal }}</span></p>
+          <p>الاجمالى  : <span>{{ calculateGrandTotal }}</span></p>
           <p v-if="orderInfo.invoiceType === 'تركيب وتوريد' || orderInfo.invoiceType === 'تركيب'  "> اجمالى مصنعية: <span>{{ calculateTotalInstallation }}</span></p>
           <p v-if="orderInfo.invoiceType === 'تركيب وتوريد'"> الكلى: <span>{{ (Number(calculateGrandTotal) + Number(calculateTotalInstallation)).toFixed(2) }}</span></p>
 
         </div>
         <div  class="fatoora__notes">
-          <p>البضاعة المباعة لا ترد ولا تستبدل الا فى خلال 14 يوم كحد اقصى من تاريخ الفاتورة</p>
-          <p>فى حالة التركيب يرجى من العميل توفير سلالم للفنيين</p>
         </div>
         <div class="qrcode_cont">
-          <canvas id="qr-code"></canvas>
-        </div>
+          <!-- /* <canvas id="qr-code"></canvas>*/ -->
+        </div>  
       </div>
       <div class="fatoora__btns">
           <button @click.prevent="goBack">عودة للطلبات</button>
@@ -95,7 +99,6 @@ import { mapState, mapActions } from 'pinia'
 import { useCategoriesStore } from '@/store/categories/categories.js';
 
 import QRCode from 'qrcode'; 
-import { nextTick } from 'vue'
 
 
 export default {
@@ -144,18 +147,25 @@ export default {
       return false;
     },
         // حساب إجمالي الخصومات
-    calculateTotalDiscount() {
-        const totalDiscount = this.orderInfo.products.reduce((total, product) => {
+        calculateTotalDiscount() {
+          const totalDiscount = this.orderInfo.products.reduce((total, product) => {
 
-        const productPrice = product.priceWithIncrease && this.isCustomized ==="true" ? product.priceWithIncrease : product.productInfo.priceMaterial;
-        const productTotalPrice = productPrice * product.quantity;
-        
-        const discountAmount = productTotalPrice * (product.price_offer / 100);
+            const productPrice = product.priceWithIncrease && this.isCustomized === "true"
+              ? product.priceWithIncrease
+              : product.productInfo.priceMaterial;
+            
+            const productTotalPrice = productPrice * product.quantity;
+            const discountAmount = productTotalPrice * (product.price_offer / 100);
 
-        return total + discountAmount;
-      }, 0);
-      return totalDiscount.toFixed(2)
-    },
+            return total + discountAmount;
+          }, 0);
+
+          // أضف الخصم الكلي الثابت (orderInfo.discount_value)
+          const totalDiscountWithFixed = totalDiscount + parseFloat(this.orderInfo.discount_value || 0);
+
+          return totalDiscountWithFixed.toFixed(2);
+        },
+
     // حساب الإجمالي الكلي بعد الخصومات
     calculateGrandTotal() {
       const grandTotal = this.orderInfo.products.reduce((total, product) => {
@@ -167,8 +177,9 @@ export default {
         return total + (productTotalPrice - discountAmount);
       }, 0);
       const shippingCost = Number(this.orderInfo.shipping) || 0;
+      const totalDiscountValue = parseFloat(this.orderInfo.discount_value || 0);
 
-      return (grandTotal+shippingCost).toFixed(2);
+      return (grandTotal+shippingCost-totalDiscountValue).toFixed(2);
     },
   // حساب إجمالي الكميات فقط
   calculateTotalQuantity() {
@@ -223,13 +234,13 @@ export default {
     
       console.log('inside componnent:', this.isCustomized);
       console.log('inside componnent:', this.orderInfo);
-    this.fetchCategories();
-    try {
-      await nextTick(); // انتظر حتى يتم تحميل الـ DOM
-      this.generateQRCode();  
-    } catch (error) {
-      console.error('Error fetching orders:', error);
-    }
+      this.fetchCategories();
+   // try {
+      //await nextTick(); // انتظر حتى يتم تحميل الـ DOM
+     //// this.generateQRCode();  
+   // } catch (error) {
+    //  console.error('Error fetching orders:', error);
+    //}
   },
   
   methods: {

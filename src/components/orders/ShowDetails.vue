@@ -31,7 +31,7 @@
                 <table class="table">
                 <thead>
                     <tr>
-                    <th>الاجمالى</th>
+                    <th v-if="isAdmin">الاجمالى</th>
                     <th v-if="isAdmin">قيمة الخصم</th>
                     <th>الكمية</th>
                     <th>السعر</th>
@@ -41,10 +41,10 @@
                 </thead>
                 <tbody v-if="orderInfo.products">
                     <tr v-for="(product, index) in orderInfo.products" :key="index">
-                    <td>{{ calculateTotalPrice(product) }}</td>
+                    <td v-if="isAdmin">{{ calculateTotalPrice(product) }}</td>
                     <td v-if="isAdmin">{{ calculateDiscount(product) }}</td>
                     <td>{{ product.quantity }}</td>
-                    <td>{{ product.productInfo.priceMaterial }}</td>
+                    <td>{{ product.priceWithIncrease  ? product.priceWithIncrease :  product.productInfo.priceMaterial  }}</td>
                     <td>{{ product.productInfo.name }}</td>
                     <td>{{ categoryName(product) }}</td>
                     </tr>

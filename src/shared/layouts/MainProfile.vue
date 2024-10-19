@@ -7,7 +7,6 @@
         </div>
       </div>
       <div class="shop">
-        <button class="shop-btn"><a href="https://ahmedabdosoftware.github.io/websiteUpdated-DSD/">Show Shop</a></button>
       </div>
       <div class="ddetails">
         <p id="nameProfile">{{ userInfo.name }}</p>
@@ -26,11 +25,7 @@
           :to="generateRoute('financial')">
           Financial
         </router-link>
-        <router-link 
-          :to="generateRoute('projects')">
-          Projects
-        </router-link>
-          <DropdownMenuSetting  />
+        <DropdownMenuSetting  />
       </div>
     </div>
     <router-view class="profile-content" :class="{ 'dark-mode': getDarkMode }"/>
@@ -189,7 +184,7 @@ export default {
 }
 .trans a{
     text-align: center;
-    width: 25%;
+    width: calc(100%/3);
     /* background-color: red; */
     font-size: 17px;
     font-family: Arial, Helvetica, sans-serif;

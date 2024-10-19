@@ -10,8 +10,22 @@
               <FormImage></FormImage>
              <ValidationObserver ref="observer" v-slot="{ invalid }">
               <form @submit.prevent="handelUpdateOrder">
-                <div class="formbold-input-flex">
-                    <div>
+                <div class="formbold-input-flex"> 
+                      <div>
+                        <ValidationProvider name=" الشحن" rules="numeric|min_value:1" v-slot="{ errors }">
+                        <label for="shipping" class="formbold-form-label">  الشحن </label>
+                        <input
+                            type="number"
+                            id="shipping"
+                            placeholder="الشحن "
+                            class="formbold-form-input"
+                            v-model="shipping"
+                        />
+                        <span class="error">{{ errors[0] }}</span>
+                        </ValidationProvider>
+                      </div>
+
+                      <div>
                         <label for="customer" class="formbold-form-label aline-end">اختر العميل</label>
                         <input list="customerList"  class="formbold-form-input aline-end"  placeholder="ابحث عن عميل" v-model="selectedCustomer" @input="updateCustomerId">
                         <datalist id="customerList">
@@ -19,44 +33,9 @@
                         </datalist>
                         <p v-if="unregisteredCustomerMessage" class="warning-message">{{ unregisteredCustomerMessage }}</p>
                       </div>
-                    
-                    <div>
-                        <label for="technical" class="formbold-form-label aline-end"> :اختر الفنى </label>
-                        <input list="technicalList"  class="formbold-form-input aline-end"   placeholder="ابحث عن فنى" v-model="selectedTechnical" @input="updateTechnicalId">
-                        <datalist id="technicalList">
-                        <option v-for="tech in technicalUsers" :key="tech.id" :value="tech.name" > </option>
-                        </datalist>
-                        <p v-if="unregisteredTechnicalMessage" class="warning-message"> {{ unregisteredTechnicalMessage }} </p>
-                    </div>
                 </div>
 
-                <div class="formbold-input-flex">
-
-                  <div>
-                      <label for="shipping" class="formbold-form-label aline-end">  الشحن </label>
-                      <input
-                          type="number"
-                          id="shipping"
-                          placeholder="الشحن "
-                          class="formbold-form-input aline-end"
-                          v-model="shipping"
-                      />
-                    </div>
-              
-
-                    <div>
-                      <ValidationProvider name="نوع الفاتورة" rules="required" v-slot="{ errors }">
-
-                        <label class="formbold-form-label aline-end">نوع الفاتورة</label>
-                        <select class="formbold-form-input" name="occupation" id="occupation" v-model="invoiceType">
-                        <option value="تركيب">تركيب</option>
-                        <option value="توريد"> توريد</option>
-                        <option value="تركيب وتوريد">تركيب وتوريد </option>
-                        </select>
-                        <span class="error">{{ errors[0] }}</span>
-                      </ValidationProvider>
-                    </div>
-                </div>
+             
 
                   
               <div class="formbold-input-flex">
@@ -234,22 +213,19 @@
                       </ValidationProvider>
                     </div>
 
-
                     <div>
-                      <label for="laborPrice" class="formbold-form-label aline-end">حدد المصنعية يدويا  </label>
+                      <label for="discount_value" class="formbold-form-label">  الخصم (قيمة ثابته) </label>
                       <input
-                        type="number"
-                        id="laborPrice"
-                        placeholder="حدد المصنعية يدويا "
-                        class="formbold-form-input aline-end"
-                        v-model="laborPrice"
-                        
-                        />
-                        <p  class="info-message"> فى حالة لا يوجد منتج يتم حساب المصنعية من خلاله او اذا كنت تفضل حساب المصنعية يدويا</p>
-                        
-                      </div>
-                    </div>
+                          type="number"
+                          id="discount_value"
+                          placeholder="الخصم "
+                          class="formbold-form-input"
+                          v-model="discount_value"
+                      />
+                     
+                    </div> 
                     
+                  </div>
                     <div class="formbold-mb-3">
                       <ValidationProvider name="تاريخ بدا العمل" rules="date_format:YYYY-MM-DD" v-slot="{ errors }">
                         <label for="dob" class="formbold-form-label aline-end"> تاريخ بدا العمل  </label>
@@ -259,7 +235,7 @@
                     </div>
                     
                     <div class="formbold-mb-3">
-                      <label for="address" class="formbold-form-label aline-end"> مكان التركيب </label>
+                      <label for="address" class="formbold-form-label aline-end"> العنوان  </label>
                       <input
                       type="text"
                       id="address"
@@ -322,7 +298,7 @@
 
   extend('numeric', {
   ...numeric,
-  message: '{_field_} يجب أن يكون رقمًا'
+  message: '{_field_} يجب أن يكون رقمًا موجبا ' 
   });
 
   extend('min_value', {
@@ -393,6 +369,7 @@
           number:'',
           laborPrice:'',
           shipping:'',
+          discount_value:0,
 
 
           // selectProductForUpdate
@@ -503,6 +480,7 @@
         this.number = order.numberOfOrder;
         this.laborPrice = order.laborPrice;
         this.shipping = order.shipping;
+        this.discount_value = order.discount_value|0;
         this.currentImageUrl = order.imageUrl;
       }
     },
@@ -1198,6 +1176,7 @@
         notes: this.notes,
         numberOfOrder: this.number,
         shipping: this.shipping,
+        discount_value: this.discount_value,
         imageUrl,
       };
       console.log('before send');
