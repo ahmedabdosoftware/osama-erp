@@ -206,7 +206,7 @@ export default {
       imageUrl: [],
       tags: "",
       priceMaterial: "",
-      priceWithLabor: "",
+      priceWithLabor: 0,
       offerPrice:"",
       buyPrice:"",
       

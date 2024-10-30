@@ -39,6 +39,7 @@ import Technical from "../views/users/technicalPages/Technical.vue";
 import AddTechnical from "../views/users/technicalPages/AddTechnical.vue";
 import Clint from "../views/users/clintePages/Clint.vue";
 import AddClint from "../views/users/clintePages/AddClint.vue";
+import deleteUser from "../views/users/shared/deleteUser.vue";
 
 
 import MainProfile from "@/shared/layouts/MainProfile.vue";
@@ -278,6 +279,12 @@ const routes = [
         path: "users/clint/AddClint",
         name: "AddClint",
         component: AddClint,
+        meta: { requiresAuth: true, roles: ['admin'] },
+      },
+      {
+        path: "users/clint/deleteUser/:profileId",
+        name: "deleteUser",
+        component: deleteUser,
         meta: { requiresAuth: true, roles: ['admin'] },
       },
       {

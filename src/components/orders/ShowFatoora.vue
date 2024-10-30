@@ -8,33 +8,27 @@
 
           </div>
           <div>
-            <button>بيان اسعار</button>
-            <span>  {{ orderInfo.numberOfOrder }}  :رقم</span>
+            <button>فاتوره </button>
+            <button class="numberOfOrder"> #{{ orderInfo.numberOfOrder }} </button>
+            <!-- <span>  {{ orderInfo.numberOfOrder }}  :رقم</span> -->
           </div>
           <div>
-            <p class="categories">  قطع غيار && جميع مستلزمات العربيات</p>
+            <!-- <p class="categories">  قطع غيار && جميع مستلزمات العربيات</p> -->
        
           </div>
         </div>
         <div  class="fatoora__title">
             <div>
-              <p v-if="orderInfo">
-                  نوع الفاتورة :
-                   {{ orderInfo.invoiceType }} 
-              </p>
-            </div>
-            <div>
                 <p  v-if="orderInfo">  
                   {{ orderInfo.date }}  
-                  : تحرير فى 
+                  : التاريخ  
                 </p>
               
                 <p v-if="orderInfo">
                   اسم العميل :    
-                  {{ orderInfo.customerName }}
+                  {{ orderInfo.customerName || "غير محدد" }}
                 </p>
             </div>
-
         </div>
         <div  class="fatoora__table" >
           <table class="table">
@@ -46,6 +40,7 @@
                 <th>سعر الوحده</th>
                 <th>كود المنتج</th>
                 <th>اسم الصنف</th>
+                <th>م</th> 
               </tr>
             </thead>
             <tbody v-if="orderInfo">
@@ -56,6 +51,7 @@
                 <td>{{ product.priceWithIncrease && isCustomized ==="true" ? product.priceWithIncrease :  product.productInfo.priceMaterial  }}</td>
                 <td>{{ product.productInfo.name }}</td>
                 <td>{{ categoryName(product) }}</td>
+                <td>{{ index + 1 }}</td> 
               </tr>
               <tr v-if="shouldDisplayInstallation">
                 <td >{{ calculateTotalInstallation }}</td>
@@ -76,17 +72,25 @@
           </table>
         </div>
         <div  class="fatoora__sales">
-          <p v-if="shouldDisplayDiscount">اجمالى الخصم: <span>{{ calculateTotalDiscount }}</span></p>
-          <p>الاجمالى  : <span>{{ calculateGrandTotal }}</span></p>
-          <p v-if="orderInfo.invoiceType === 'تركيب وتوريد' || orderInfo.invoiceType === 'تركيب'  "> اجمالى مصنعية: <span>{{ calculateTotalInstallation }}</span></p>
-          <p v-if="orderInfo.invoiceType === 'تركيب وتوريد'"> الكلى: <span>{{ (Number(calculateGrandTotal) + Number(calculateTotalInstallation)).toFixed(2) }}</span></p>
+          <table border="2" class="totalTable">
+            <tbody>
+              <tr v-if="shouldDisplayDiscount">  
+                <td> {{ calculateTotalDiscount }}</td>
+                <td class="total-bg">  :اجمالى الخصم</td>
+              </tr>
+              <tr v-if="shouldDisplayDiscount">  
+                <td> {{ calculateGrandTotal }}</td>
+                <td class="total-bg">    :اجمالى الفاتوره  </td>
+              </tr>
+           </tbody>
+        </table>
+          <!-- <p v-if="shouldDisplayDiscount">اجمالى الخصم: <span>{{ calculateTotalDiscount }}</span></p> -->
+          <!-- <p>الاجمالى  : <span>{{ calculateGrandTotal }}</span></p> -->
 
         </div>
         <div  class="fatoora__notes">
         </div>
-        <div class="qrcode_cont">
-          <!-- /* <canvas id="qr-code"></canvas>*/ -->
-        </div>  
+         
       </div>
       <div class="fatoora__btns">
           <button @click.prevent="goBack">عودة للطلبات</button>
@@ -306,11 +310,11 @@ export default {
 
 //varibles
 
-$buttom_fatoora_background:rgb(235, 229, 229);
+$buttom_fatoora_background:#0a303f;
 $buttom_font_fatoora: 22px;
 $font_weight_fatoora: 700;
 $border_fatoora:2px solid rgb(71, 71, 71);
-$buttom_color_fattora: black;
+$buttom_color_fattora: white;
 $buttom_font: 19px;
 
 
@@ -367,12 +371,12 @@ $buttom_font: 19px;
  .fatoora{
     @extend %use_flex;
     justify-content:center;
-    width: 60%;
-    min-height:100vh;
-   //background-color: red;
+    width: 66%;
+    min-height:60vh;
+  //  background-color: red;
     margin: auto;
     margin-top: 32px;
-    border :$border_fatoora;
+    border :6px double rgb(71, 71, 71);
     border-radius: 5px;
   
 }
@@ -382,7 +386,7 @@ $buttom_font: 19px;
   justify-content: space-evenly;
   width: 100%;
   height:250px;
-   //background-color: rgb(153, 141, 141);
+  //  background-color: rgb(153, 141, 141);
    
    >div{
      width: 30%;
@@ -426,24 +430,28 @@ $buttom_font: 19px;
     @extend %use_flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: flex-start;
 
     button{
       
       @extend %btn-style_fatoora;
-        width: 60%;
+        font-size: 28px;
+        width: 170px;
         height: 50px;
-        margin-bottom: 15px;
+        margin-top: 15px;
         border: $border_fatoora;
+        color: white;
       }
-      span{
-        width: 100px;
-        height: 40px;
-        line-height: 40px;
-        @extend %font;
-        
-          //background-color:$buttom_fatoora_background;
-        }
+      button:first-child{
+        text-decoration: underline;
+      }
+      button:nth-child(2){
+        width: 130px;
+        background-color: white;
+        color:rgb(100, 98, 98);
+        border:dashed 2px $buttom_fatoora_background;
+      }
+    
 
    }
 
@@ -452,21 +460,26 @@ $buttom_font: 19px;
 
  .fatoora__title{
   width: 95%;
-  height: 130px;
-  border: $border_fatoora;
+  height: 100px;
+  // border: $border_fatoora;
   @extend %use_flex;
-  justify-content: space-evenly;
+  justify-content: flex-end;
+  align-items: center;
+  // background-color: aliceblue;
   >div{
-    width: 40%;
-    height: 100%;
-   // background-color: aliceblue;
+    min-width: 200px;
+    height: 70px;
+    // background-color: rgb(87, 114, 137);
+    border: 2px solid black;
 
      p {
         //background-color: rgb(104, 149, 189);
-        margin-top: 20px;
+        padding-right: 10px;
+        margin-top: 7px;
         text-align: end;
         font-weight: $font_weight_fatoora;
-        font-size: $buttom_font_fatoora;
+        font-size: 18px;
+        text-decoration: underline;
       }
     }
     
@@ -480,16 +493,20 @@ $buttom_font: 19px;
     .table{
       width: 100%;
       height: 100%;
+      border-collapse: collapse;
    // background-color: salmon;
    tr{
 
      height: 30px;
      td,th{
-
        border: $border_fatoora;
        text-align: center;
        //background-color: sandybrown;
        
+      }
+      th{
+       background-color: $buttom_fatoora_background;
+
      }
 
     }
@@ -497,25 +514,42 @@ $buttom_font: 19px;
   
 }
 .fatoora__sales{
-  width: 95%;
+  
+  width: 100%;
   display: flex;
-  flex-direction: column;
-  justify-content:space-evenly;
-  padding-left: 20px;
+  justify-content:flex-start;
   margin-top: 14px;
-  p{
-    //width: 280px;
-    text-align: start;
-    @extend %font;
-    margin-top:16px ;
+  // background-color: red;
+  // padding-left: 20px;
+  // margin-right: 180px;
+  // p{
+  //   //width: 280px;
+  //   text-align: start;
+  //   @extend %font;
+  //   margin-top:16px ;
     
-    span{
-      border: 2px solid black;
-      padding: 4px;
+  //   span{
+  //     border: 2px solid black;
+  //     padding: 4px;
+    // }
+  // }
+  table{
+    margin-left: 50px;
+    tr{
+      td{
+        width: 100px;
+        height: 40px;
+        text-align: center;
+      }
+      .total-bg{
+        background-color: rgb(130, 151, 232);
+      }
     }
+
   }
 
 }
+
 .fatoora__notes{
   width: 95%;
   height: 100px;
@@ -553,8 +587,9 @@ $buttom_font: 19px;
     margin-bottom: 15px;
     width: 60%;
     height: 50px;
-      border: $border_fatoora;
-      @extend %btn-style_fatoora;
+    border: $border_fatoora;
+    @extend %btn-style_fatoora;
+    color: white;
 
     }
 

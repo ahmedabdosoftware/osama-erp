@@ -8,6 +8,10 @@
       <a v-if="user.number" :href="'https://wa.me/2' + user.number" target="_blank">
         <span>واتس</span> <font-awesome-icon  class="icon" :icon="['fab', 'whatsapp']" />
       </a>
+      <a href="#" @click.prevent="deleteUser(user)">
+        <span class="delete-text">حذف </span><font-awesome-icon  class="icon delete-text" icon="user" /> 
+      </a>
+      
     </div>
   </div>
 </template>
@@ -41,6 +45,10 @@
     
       profile(user) {
         this.$router.push({ name: 'AdminUserOrder', params: { profileId: user.id } });
+        
+      },
+      deleteUser(user) {
+        this.$router.push({ name: 'deleteUser', params: { profileId: user.id } });
 
      },
       nothing() {
@@ -86,14 +94,14 @@
     right: 20px;
     background-color: white;
     min-width: 130px;
-    height: 100px;
+    height: 130px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     border-radius: 15px;
     z-index: 1;
     padding-bottom: 10px;
   }
   .dropdown-content a {
-    height: calc(100% / 2);
+    height: calc(100% / 3);
     border-radius: 15px;
     color: rgb(31, 31, 48);
     padding: 12px 16px;

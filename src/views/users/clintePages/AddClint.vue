@@ -50,10 +50,15 @@
         </form>
       </ValidationObserver>
       </div>
+      <CircleLoader :show="isLoading" />
+
     </div>
   </template>
   
   <script>
+
+// CircleLoader
+import CircleLoader from '@/shared/components/loading/CircleLoader.vue';
 
 import { extend } from 'vee-validate';
 import { required,email,numeric,digits  } from 'vee-validate/dist/rules';
@@ -87,6 +92,9 @@ import { required,email,numeric,digits  } from 'vee-validate/dist/rules';
   
   export default {
     name: "AddClint",
+    components: {
+      CircleLoader,
+    },
     data() {
       return {
         name: '',
@@ -95,6 +103,10 @@ import { required,email,numeric,digits  } from 'vee-validate/dist/rules';
         number:null,
         file: null, // for add picture
         profileImageURL:'',
+
+         // loading 
+         isLoading: false,
+  
       };
     },
     computed: {
@@ -109,6 +121,8 @@ import { required,email,numeric,digits  } from 'vee-validate/dist/rules';
         this.file = event.target.files[0];
       },
       async createNewTechnical() {
+        this.isLoading = true;
+
         try {
           const userCredential = await this.registerUser({ email: this.email, password: this.password, name: this.name, number: this.number, role: 'clint', profileImageURL:this.profileImageURL });
           const userId= userCredential.user.uid
@@ -116,7 +130,11 @@ import { required,email,numeric,digits  } from 'vee-validate/dist/rules';
             await this.uploadImage({ uid: userId, file: this.file });
           }
           alert('User created successfully!');
+          this.isLoading = false;
+
         } catch (error) {
+          
+          this.isLoading = false;
           alert('Error creating user: ' + error.message);
         }
       },

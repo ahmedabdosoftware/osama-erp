@@ -108,7 +108,57 @@ export const useUserStore = defineStore('user', {
 
 
     },
+    
+ // this 2  *2* insted way for delete user by admin SDK
+          //   ...........
+          
+// that 2  *2* insted way for delete user
+async deleteUser({ uid, oldEmail, oldPassword }) {
+  try {
 
+      const adminUser = auth.currentUser;
+      const adminEmail = adminUser.email;
+  
+      const adminDoc = await db.collection('users').doc(adminUser.uid).get();
+      const adminPasswordEncrypted = adminDoc.data().password;
+      const adminPassword = decrypt(adminPasswordEncrypted);
+  
+      console.log('قبل تسجيل الخروج من حساب الأدمن');
+      await this.logout(); 
+      console.log('تم تسجيل الخروج من الأدمن');
+
+      // محاولة تسجيل الدخول بالحساب الذي سيتم حذفه
+      let user = null;
+      try {
+          console.log('محاولة تسجيل الدخول بالحساب الذي سيتم حذفه:', oldEmail, oldPassword);
+          await this.login(oldEmail, oldPassword);
+          console.log('تم تسجيل الدخول بالحساب الذي سيتم حذفه');
+
+          user = auth.currentUser; 
+      } catch (loginError) {
+
+          console.error('فشلت محاولة تسجيل الدخول بالحساب القديم:', loginError.code, loginError.message);
+      }
+
+      // إذا تم تسجيل الدخول بنجاح والحصول على المستخدم
+      if (user) {
+
+          await user.delete();
+
+          await this.login(adminEmail, adminPassword);
+
+          await db.collection('users').doc(uid).delete();
+           alert('User updated successfully!');
+
+      } else {
+          await this.login(adminEmail, adminPassword);
+          alert('Error deleting user: ');
+      }
+      
+  } catch (error) {
+      console.error('حدث خطأ أثناء حذف المستخدم أو تسجيل الدخول مرة أخرى:', error.code, error.message);
+  }
+},
     
 // that 2  *2* insted way for roles
     async fetchUserRoleFromFirestore() {

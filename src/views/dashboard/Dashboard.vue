@@ -12,7 +12,7 @@
           <p :class="{ 'dark-mode-title': getDarkMode }">dashboard grid</p>
         </div>  
       </div>
-      <WelcomeMessage  />
+      <!-- <WelcomeMessage  /> -->
     </div>
     <StatisticsInfo  />
     <TodayOrder  />
@@ -35,7 +35,7 @@
   import StockAlert from "@/components/dashboard/StockAlert.vue";
   
   // WelcomeMessage
-  import WelcomeMessage from "@/components/dashboard/WelcomeMessage.vue";
+  // import WelcomeMessage from "@/components/dashboard/WelcomeMessage.vue";
 
   //Purchases
   import PurchasesUnpaid from "@/components/dashboard/PurchasesUnpaid.vue";
@@ -46,7 +46,7 @@ export default {
     StatisticsInfo,
     TodayOrder,
     StockAlert,
-    WelcomeMessage,
+    // WelcomeMessage,
     PurchasesUnpaid,
   },
   computed: {

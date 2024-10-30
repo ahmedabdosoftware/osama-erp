@@ -5,16 +5,11 @@
         <img :src="oneProduct.imageUrl" />
       </div>
       <div>
-        <span> {{ oneProduct.name | subName }}</span>
-        <p class="descrption">{{ oneProduct.description | sub }}</p>
+        <span> {{ oneProduct.name  }}</span>
+        <p class="descrption">{{ oneProduct.description }}</p>
         <div class="cont-star">
-          <img class="star" src="https://img.freepik.com/free-vector/start_53876-25533.jpg" />
-          <img class="star" src="https://img.freepik.com/free-vector/start_53876-25533.jpg" />
-          <img class="star" src="https://img.freepik.com/free-vector/start_53876-25533.jpg" />
-          <img class="star" src="https://img.freepik.com/free-vector/start_53876-25533.jpg" />
-          <img class="star" src="https://img.freepik.com/free-vector/start_53876-25533.jpg" />
         </div>
-        <span>{{ oneProduct.priceMaterial }} :  سعرال{{ oneProduct.unitName.name }}</span>
+        <span> Price :{{ oneProduct.priceMaterial }}  </span>
         <span v-if="oneProduct.priceWithLabor">{{ oneProduct.priceWithLabor }} : مصنعية</span>
         <router-link :to="{ name: 'EditProduct', params: { id: oneProduct.id } }">
           <button class="edit">edit</button>
@@ -106,7 +101,9 @@ export default {
 .contPro > div > div:first-child {
   width: 90%;
   height: 59%;
-  background-color: rgb(194, 191, 191);
+  background-color:white;
+  box-shadow: 0 0 5px rgb(210, 205, 205);
+
   /* background-color:rgb(141, 28, 28); */
   border-radius: 15px;
   position: relative;
